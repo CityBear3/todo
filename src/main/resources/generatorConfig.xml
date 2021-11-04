@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD
+    MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="C:\Users\str76\.gradle\caches\modules-2\files-2.1\mysql\mysql-connector-java\8.0.25\f8b9123acd13058c941aff25f308c9ed8000bb73\mysql-connector-java-8.0.25.jar"/>
+    <context id="kotlin" targetRuntime="MyBatis3Kotlin">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:53306/todo"
+                        userId="dev"
+                        password="dev0000" />
+        <javaModelGenerator targetPackage="com.project.todo.model" targetProject="src/main/kotlin">
+            <property name="enableSubPackages" value="true" />
+        </javaModelGenerator>
+
+        <javaClientGenerator targetPackage="com.project.todo.mapper" targetProject="src/main/kotlin">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="user" />
+        <table tableName="todo" />
+    </context>
+</generatorConfiguration>
