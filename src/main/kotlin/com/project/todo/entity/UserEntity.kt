@@ -10,6 +10,12 @@ class UserEntity(
     private val password: String,
     private val isAdmin: Boolean
 ) {
+    fun checkEmail(): Boolean {
+        return email.matches(
+            Regex("^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,}\$")
+        )
+    }
+
     fun checkPassword(): Boolean {
         return password.matches(Regex("^(?=.*[A-Z])(?=.*[?/-])[a-zA-z0-9?/-]{8,24}$"))
     }
