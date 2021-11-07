@@ -1,7 +1,7 @@
 package com.project.todo.service
 
 import com.project.todo.entity.UserEntity
-import com.project.todo.entity.response.UserCreateResponse
+import com.project.todo.entity.response.CreateUserResponse
 import com.project.todo.model.UserRecord
 import com.project.todo.repository.UserRepository
 import org.springframework.http.HttpStatus
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(private val userRepository: UserRepository) {
-    fun createUser(userEntity: UserEntity): ResponseEntity<UserCreateResponse> {
+    fun createUser(userEntity: UserEntity): ResponseEntity<CreateUserResponse> {
         var userRecord = UserRecord()
         if (!userEntity.checkEmail()) {
             return ResponseEntity(
-                UserCreateResponse(
+                CreateUserResponse(
                     uid = -1,
                     message = "Please check your email address enough rule"
                 ),
@@ -24,7 +24,7 @@ class UserService(private val userRepository: UserRepository) {
 
         if (!userEntity.checkPassword()) {
             return ResponseEntity(
-                UserCreateResponse(
+                CreateUserResponse(
                     uid = -1,
                     message = "Please check your password enough rule"
                 ),
@@ -37,7 +37,7 @@ class UserService(private val userRepository: UserRepository) {
             userRecord = userRepository.selectByEmail(userEntity.createRecode())!!
         }.fold(
             onSuccess = { return ResponseEntity(
-                UserCreateResponse(
+                CreateUserResponse(
                     uid = userRecord.id!!,
                     message = "User create was success"
                 ),
@@ -45,7 +45,7 @@ class UserService(private val userRepository: UserRepository) {
             ) },
             onFailure = {
                 return ResponseEntity(
-                    UserCreateResponse(
+                    CreateUserResponse(
                         uid = -1,
                         message = "User create was failed"
                     ),
