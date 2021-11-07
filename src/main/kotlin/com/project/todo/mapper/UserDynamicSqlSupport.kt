@@ -1,9 +1,9 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2021-11-04T10:08:11.4226587+09:00
  */
 package com.project.todo.mapper
 
+import com.project.todo.model.enum.RoleType
 import java.sql.JDBCType
 import java.util.Date
 import org.mybatis.dynamic.sql.SqlTable
@@ -18,7 +18,7 @@ object UserDynamicSqlSupport {
 
         val password = column<String>("password", JDBCType.VARCHAR)
 
-        val isAdmin = column<Byte>("is_admin", JDBCType.TINYINT)
+        val role = column<RoleType>("role", JDBCType.CHAR, "org.apache.ibatis.type.EnumTypeHandler")
 
         val createTime = column<Date>("create_time", JDBCType.TIMESTAMP)
     }

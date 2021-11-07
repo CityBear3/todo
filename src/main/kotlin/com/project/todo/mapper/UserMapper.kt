@@ -1,6 +1,5 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2021-11-04T10:08:11.4226587+09:00
  */
 package com.project.todo.mapper
 
@@ -13,6 +12,7 @@ import org.apache.ibatis.annotations.ResultMap
 import org.apache.ibatis.annotations.Results
 import org.apache.ibatis.annotations.SelectProvider
 import org.apache.ibatis.annotations.UpdateProvider
+import org.apache.ibatis.type.EnumTypeHandler
 import org.apache.ibatis.type.JdbcType
 import org.mybatis.dynamic.sql.delete.render.DeleteStatementProvider
 import org.mybatis.dynamic.sql.insert.render.InsertStatementProvider
@@ -45,7 +45,7 @@ interface UserMapper {
         Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
         Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
-        Result(column="is_admin", property="isAdmin", jdbcType=JdbcType.TINYINT),
+        Result(column="role", property="role", typeHandler=EnumTypeHandler::class, jdbcType=JdbcType.CHAR),
         Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<UserRecord>

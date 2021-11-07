@@ -1,6 +1,5 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2021-11-04T10:08:11.4397947+09:00
  */
 package com.project.todo.mapper
 
@@ -8,8 +7,8 @@ import com.project.todo.mapper.UserDynamicSqlSupport.User
 import com.project.todo.mapper.UserDynamicSqlSupport.User.createTime
 import com.project.todo.mapper.UserDynamicSqlSupport.User.email
 import com.project.todo.mapper.UserDynamicSqlSupport.User.id
-import com.project.todo.mapper.UserDynamicSqlSupport.User.isAdmin
 import com.project.todo.mapper.UserDynamicSqlSupport.User.password
+import com.project.todo.mapper.UserDynamicSqlSupport.User.role
 import com.project.todo.mapper.UserDynamicSqlSupport.User.username
 import com.project.todo.model.UserRecord
 import org.mybatis.dynamic.sql.SqlBuilder.isEqualTo
@@ -33,7 +32,7 @@ fun UserMapper.insert(record: UserRecord) =
         map(username).toProperty("username")
         map(email).toProperty("email")
         map(password).toProperty("password")
-        map(isAdmin).toProperty("isAdmin")
+        map(role).toProperty("role")
         map(createTime).toProperty("createTime")
     }
 
@@ -43,7 +42,7 @@ fun UserMapper.insertMultiple(records: Collection<UserRecord>) =
         map(username).toProperty("username")
         map(email).toProperty("email")
         map(password).toProperty("password")
-        map(isAdmin).toProperty("isAdmin")
+        map(role).toProperty("role")
         map(createTime).toProperty("createTime")
     }
 
@@ -56,11 +55,11 @@ fun UserMapper.insertSelective(record: UserRecord) =
         map(username).toPropertyWhenPresent("username", record::username)
         map(email).toPropertyWhenPresent("email", record::email)
         map(password).toPropertyWhenPresent("password", record::password)
-        map(isAdmin).toPropertyWhenPresent("isAdmin", record::isAdmin)
+        map(role).toPropertyWhenPresent("role", record::role)
         map(createTime).toPropertyWhenPresent("createTime", record::createTime)
     }
 
-private val columnList = listOf(id, username, email, password, isAdmin, createTime)
+private val columnList = listOf(id, username, email, password, role, createTime)
 
 fun UserMapper.selectOne(completer: SelectCompleter) =
     selectOne(this::selectOne, columnList, User, completer)
@@ -85,7 +84,7 @@ fun KotlinUpdateBuilder.updateAllColumns(record: UserRecord) =
         set(username).equalTo(record::username)
         set(email).equalTo(record::email)
         set(password).equalTo(record::password)
-        set(isAdmin).equalTo(record::isAdmin)
+        set(role).equalTo(record::role)
         set(createTime).equalTo(record::createTime)
     }
 
@@ -95,7 +94,7 @@ fun KotlinUpdateBuilder.updateSelectiveColumns(record: UserRecord) =
         set(username).equalToWhenPresent(record::username)
         set(email).equalToWhenPresent(record::email)
         set(password).equalToWhenPresent(record::password)
-        set(isAdmin).equalToWhenPresent(record::isAdmin)
+        set(role).equalToWhenPresent(record::role)
         set(createTime).equalToWhenPresent(record::createTime)
     }
 
@@ -104,7 +103,7 @@ fun UserMapper.updateByPrimaryKey(record: UserRecord) =
         set(username).equalTo(record::username)
         set(email).equalTo(record::email)
         set(password).equalTo(record::password)
-        set(isAdmin).equalTo(record::isAdmin)
+        set(role).equalTo(record::role)
         set(createTime).equalTo(record::createTime)
         where(id, isEqualTo(record::id))
     }
@@ -114,7 +113,7 @@ fun UserMapper.updateByPrimaryKeySelective(record: UserRecord) =
         set(username).equalToWhenPresent(record::username)
         set(email).equalToWhenPresent(record::email)
         set(password).equalToWhenPresent(record::password)
-        set(isAdmin).equalToWhenPresent(record::isAdmin)
+        set(role).equalToWhenPresent(record::role)
         set(createTime).equalToWhenPresent(record::createTime)
         where(id, isEqualTo(record::id))
     }
