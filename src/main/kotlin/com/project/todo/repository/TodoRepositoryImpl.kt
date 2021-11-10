@@ -22,6 +22,16 @@ class TodoRepositoryImpl(
             }
     }
 
+    override fun select(todoId: Int): TodoRecord? {
+        createSessionFactory.newFactory()
+            .openSession()
+            .use {
+                session ->
+                val mapper = session.getMapper(TodoMapper::class.java)
+                return mapper.selectByPrimaryKey(todoId)
+            }
+    }
+
     override fun selectByUid(uid: Int): List<TodoRecord> {
         var todos: List<TodoRecord>
         createSessionFactory.newFactory()
