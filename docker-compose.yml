@@ -10,3 +10,8 @@ services:
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=dev0000
       - MYSQL_ROOT_PASSWORD=root0000
+
+  redis:
+    image: redis:latest
+    ports:
+      - "127.0.0.1:6379:6379"
