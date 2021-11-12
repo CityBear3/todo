@@ -1,10 +1,10 @@
 package com.project.todo.api.controller
 
-import com.project.todo.entity.UserEntity
-import com.project.todo.entity.request.CreateUserRequest
-import com.project.todo.entity.response.CreateUserResponse
-import com.project.todo.model.enum.RoleType
-import com.project.todo.service.UserService
+import com.project.todo.domain.entity.UserEntity
+import com.project.todo.api.request.CreateUserRequest
+import com.project.todo.api.response.CreateUserResponse
+import com.project.todo.domain.model.enum.RoleType
+import com.project.todo.application.service.UserApplicationService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/user")
-class UserController(val userService: UserService) {
+class UserController(val userApplicationService: UserApplicationService) {
     @PostMapping("/signup")
     fun createUser(@RequestBody createUserRequest: CreateUserRequest): ResponseEntity<CreateUserResponse> {
-        return userService.createUser(
+        return userApplicationService.createUser(
             UserEntity(
                 userName = createUserRequest.userName,
                 email = createUserRequest.email,

@@ -1,18 +1,18 @@
 package com.project.todo.api.controller
 
-import com.project.todo.entity.TodoEntity
-import com.project.todo.entity.request.CreateTodoRequest
-import com.project.todo.entity.request.UpdateTodoRequest
-import com.project.todo.service.TodoService
+import com.project.todo.domain.entity.TodoEntity
+import com.project.todo.api.request.CreateTodoRequest
+import com.project.todo.api.request.UpdateTodoRequest
+import com.project.todo.application.service.TodoApplicationService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/todo")
-class TodoController(private val todoService: TodoService) {
+class TodoController(private val todoApplicationService: TodoApplicationService) {
     @PostMapping("/new")
     fun createTodo(@RequestBody createTodoRequest: CreateTodoRequest): ResponseEntity<String> {
-        return todoService.createTodo(
+        return todoApplicationService.createTodo(
             TodoEntity(
                 title = createTodoRequest.title,
                 description = createTodoRequest.description,
@@ -27,7 +27,7 @@ class TodoController(private val todoService: TodoService) {
         @PathVariable("todoId") todoId: Int,
         @RequestBody updateTodoRequest: UpdateTodoRequest
     ): ResponseEntity<String> {
-        return todoService.updateTodo(
+        return todoApplicationService.updateTodo(
             todoId, TodoEntity(
                 title = updateTodoRequest.title,
                 description = updateTodoRequest.description,

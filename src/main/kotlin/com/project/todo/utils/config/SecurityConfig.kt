@@ -4,9 +4,9 @@ import com.project.todo.api.handler.TodoAppAccessDeniedHandler
 import com.project.todo.api.handler.TodoAppAuthenticationEntryPoint
 import com.project.todo.api.handler.TodoAppAuthenticationFailureHandler
 import com.project.todo.api.handler.TodoAppAuthenticationSuccessHandler
-import com.project.todo.model.enum.RoleType
-import com.project.todo.service.AuthenticationService
-import com.project.todo.service.TodoAppUserDetailsService
+import com.project.todo.domain.model.enum.RoleType
+import com.project.todo.application.service.AuthenticationService
+import com.project.todo.application.service.TodoAppUserDetailsService
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
