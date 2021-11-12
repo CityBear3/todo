@@ -4,6 +4,7 @@ import com.project.todo.domain.model.TodoRecord
 import java.util.*
 
 class TodoEntity(
+    private val id: Int? = null,
     private val title: String? = null,
     private val description: String? = null,
     private val done: Boolean? = null,
@@ -26,9 +27,10 @@ class TodoEntity(
 
     fun updateRecord(): TodoRecord {
         return TodoRecord(
+            id = id,
             title = title,
             description = description,
-            done = if (done!!) {
+            done = if (done != null && done) {
                 1.toByte()
             } else {
                 0.toByte()
