@@ -23,9 +23,8 @@ class TodoApplicationService(private val todoRepository: TodoRepository, private
         )
     }
 
-    fun updateTodo(id: Int, todoEntity: TodoEntity): ResponseEntity<String> {
+    fun updateTodo(todoEntity: TodoEntity): ResponseEntity<String> {
         val record = todoEntity.updateRecord()
-        record.id = id
         if (!userCheckLogic.checkUserByTodoId(record.id!!)) {
             return ResponseEntity("Auth Error", HttpStatus.FORBIDDEN)
         }
