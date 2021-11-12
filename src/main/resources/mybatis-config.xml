@@ -15,7 +15,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper class="com.project.todo.mapper.UserMapper"/>
-        <mapper class="com.project.todo.mapper.TodoMapper"/>
+        <mapper class="com.project.todo.infrastructure.mapper.UserMapper"/>
+        <mapper class="com.project.todo.infrastructure.mapper.TodoMapper"/>
     </mappers>
 </configuration>
