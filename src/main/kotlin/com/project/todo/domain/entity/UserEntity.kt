@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
 
 class UserEntity(
+    private val id: Int? = null,
     private val userName: String? = null,
     private val email: String? = null,
     private val password: String? = null,
@@ -23,6 +24,7 @@ class UserEntity(
 
     fun createRecode(): UserRecord {
         return UserRecord(
+            id = id,
             username = userName,
             email = email,
             password = BCryptPasswordEncoder().encode(password),
