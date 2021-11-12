@@ -28,7 +28,8 @@ class TodoController(private val todoApplicationService: TodoApplicationService)
         @RequestBody updateTodoRequest: UpdateTodoRequest
     ): ResponseEntity<String> {
         return todoApplicationService.updateTodo(
-            todoId, TodoEntity(
+            TodoEntity(
+                id = todoId,
                 title = updateTodoRequest.title,
                 description = updateTodoRequest.description,
                 done = updateTodoRequest.done
