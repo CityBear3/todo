@@ -2,7 +2,6 @@ package com.project.todo.application.service
 
 import com.project.todo.api.response.CreateUserResponse
 import com.project.todo.domain.entity.UserEntity
-import com.project.todo.domain.model.UserRecord
 import com.project.todo.domain.repository.UserRepository
 import com.project.todo.domain.service.UserDomainService
 import org.springframework.http.HttpStatus
@@ -15,11 +14,9 @@ class UserApplicationService(
     private val userDomainService: UserDomainService
 ) {
     fun createUser(userEntity: UserEntity): ResponseEntity<CreateUserResponse> {
-        var userRecord = UserRecord()
         if (!userEntity.checkEmail()) {
             return ResponseEntity(
                 CreateUserResponse(
-                    uid = -1,
                     message = "Please check your email address enough rule"
                 ),
                 HttpStatus.BAD_REQUEST
@@ -29,7 +26,6 @@ class UserApplicationService(
         if (userDomainService.exists(userEntity)) {
             return ResponseEntity(
                 CreateUserResponse(
-                    uid = -1,
                     message = "This account has been already existed"
                 ),
                 HttpStatus.BAD_REQUEST
@@ -39,7 +35,6 @@ class UserApplicationService(
         if (!userEntity.checkPassword()) {
             return ResponseEntity(
                 CreateUserResponse(
-                    uid = -1,
                     message = "Please check your password enough rule"
                 ),
                 HttpStatus.BAD_REQUEST
@@ -48,12 +43,10 @@ class UserApplicationService(
 
         kotlin.runCatching {
             userRepository.create(userEntity.createRecode())
-            userRecord = userRepository.selectByEmail(userEntity.createRecode())!!
         }.fold(
             onSuccess = {
                 return ResponseEntity(
                     CreateUserResponse(
-                        uid = userRecord.id!!,
                         message = "User create was success"
                     ),
                     HttpStatus.OK
@@ -62,7 +55,6 @@ class UserApplicationService(
             onFailure = {
                 return ResponseEntity(
                     CreateUserResponse(
-                        uid = -1,
                         message = "User create was failed"
                     ),
                     HttpStatus.INTERNAL_SERVER_ERROR
