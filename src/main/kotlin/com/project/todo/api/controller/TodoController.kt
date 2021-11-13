@@ -2,6 +2,7 @@ package com.project.todo.api.controller
 
 import com.project.todo.api.request.CreateTodoRequest
 import com.project.todo.api.request.UpdateTodoRequest
+import com.project.todo.api.response.GetTodoResponse
 import com.project.todo.application.service.TodoApplicationService
 import com.project.todo.domain.entity.TodoEntity
 import com.project.todo.utils.factory.UserInfoFactory
@@ -39,5 +40,10 @@ class TodoController(
                 done = updateTodoRequest.done
             )
         )
+    }
+
+    @GetMapping("/list")
+    fun getTodos(): ResponseEntity<GetTodoResponse> {
+        return todoApplicationService.getTodos()
     }
 }
