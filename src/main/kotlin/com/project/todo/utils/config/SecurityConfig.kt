@@ -1,9 +1,6 @@
 package com.project.todo.utils.config
 
-import com.project.todo.api.handler.TodoAppAccessDeniedHandler
-import com.project.todo.api.handler.TodoAppAuthenticationEntryPoint
-import com.project.todo.api.handler.TodoAppAuthenticationFailureHandler
-import com.project.todo.api.handler.TodoAppAuthenticationSuccessHandler
+import com.project.todo.api.handler.*
 import com.project.todo.domain.model.enum.RoleType
 import com.project.todo.application.service.AuthenticationService
 import com.project.todo.application.service.TodoAppUserDetailsService
@@ -35,6 +32,10 @@ class SecurityConfig(private val authenticationService: AuthenticationService) :
             .exceptionHandling()
             .authenticationEntryPoint(TodoAppAuthenticationEntryPoint())
             .accessDeniedHandler(TodoAppAccessDeniedHandler())
+            .and()
+            .logout()
+            .logoutUrl("/api/logout")
+            .logoutSuccessHandler(TodoAppLogoutSuccessHandler())
             .and()
             .cors().disable()
     }
