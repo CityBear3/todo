@@ -5,6 +5,7 @@ import com.project.todo.api.request.UpdateTodoRequest
 import com.project.todo.api.response.GetTodoResponse
 import com.project.todo.application.service.TodoApplicationService
 import com.project.todo.domain.entity.TodoEntity
+import com.project.todo.utils.factory.ResponseFactory
 import com.project.todo.utils.factory.UserInfoFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/todo")
 class TodoController(
     private val todoApplicationService: TodoApplicationService,
-    private val userInfoFactory: UserInfoFactory
+    private val userInfoFactory: UserInfoFactory,
+    private val responseFactory: ResponseFactory
 ) {
     @PostMapping("/new")
     fun createTodo(@RequestBody createTodoRequest: CreateTodoRequest): ResponseEntity<String> {
-        return todoApplicationService.createTodo(
+        val result = todoApplicationService.createTodo(
             TodoEntity(
                 title = createTodoRequest.title,
                 description = createTodoRequest.description,
@@ -25,6 +27,7 @@ class TodoController(
                 userId = userInfoFactory.getUserInfo().id
             )
         )
+        return responseFactory.returnFactory(result.first, result.second)
     }
 
     @PutMapping("/update/{todoId}")
@@ -32,7 +35,7 @@ class TodoController(
         @PathVariable("todoId") todoId: Int,
         @RequestBody updateTodoRequest: UpdateTodoRequest
     ): ResponseEntity<String> {
-        return todoApplicationService.updateTodo(
+        val result = todoApplicationService.updateTodo(
             TodoEntity(
                 id = todoId,
                 title = updateTodoRequest.title,
@@ -40,10 +43,12 @@ class TodoController(
                 done = updateTodoRequest.done
             )
         )
+        return responseFactory.returnFactory(result.first, result.second)
     }
 
     @GetMapping("/list")
     fun getTodos(): ResponseEntity<GetTodoResponse> {
-        return todoApplicationService.getTodos()
+        val result = todoApplicationService.getTodos()
+        return responseFactory.returnFactory(result.first, result.second)
     }
 }
