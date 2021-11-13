@@ -52,7 +52,7 @@ class TodoApplicationService(
             onSuccess = { return ResponseEntity(GetTodoResponse(message = "succeeded", todos = todos), HttpStatus.OK) },
             onFailure = {
                 return ResponseEntity(
-                    GetTodoResponse(message = "failed", todos = null),
+                    GetTodoResponse(message = "failed", todos = todos),
                     HttpStatus.INTERNAL_SERVER_ERROR
                 )
             }
