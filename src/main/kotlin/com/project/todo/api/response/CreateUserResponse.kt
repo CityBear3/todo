@@ -1,3 +1,3 @@
 package com.project.todo.api.response
 
-data class CreateUserResponse(val uid: Int, val message: String)
+data class CreateUserResponse(val message: String)
