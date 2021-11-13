@@ -16,42 +16,42 @@ class TodoApplicationService(
     private val userCheckLogic: UserCheckLogic,
     private val userInfoFactory: UserInfoFactory
 ) {
-    fun createTodo(todoEntity: TodoEntity): ResponseEntity<String> {
+    fun createTodo(todoEntity: TodoEntity): Pair<String, HttpStatus> {
         val record = todoEntity.createRecord()
         if (!userCheckLogic.checkUser(record.userId!!)) {
-            return ResponseEntity("Auth Error", HttpStatus.FORBIDDEN)
+            return Pair("Auth Error", HttpStatus.FORBIDDEN)
         }
 
         kotlin.runCatching {
             todoRepository.create(record)
         }.fold(
-            onSuccess = { return ResponseEntity("create todo is successful", HttpStatus.OK) },
-            onFailure = { return ResponseEntity("create todo is failed", HttpStatus.INTERNAL_SERVER_ERROR) }
+            onSuccess = { return Pair("create todo is successful", HttpStatus.OK) },
+            onFailure = { return Pair("create todo is failed", HttpStatus.INTERNAL_SERVER_ERROR) }
         )
     }
 
-    fun updateTodo(todoEntity: TodoEntity): ResponseEntity<String> {
+    fun updateTodo(todoEntity: TodoEntity): Pair<String, HttpStatus> {
         val record = todoEntity.updateRecord()
         if (!userCheckLogic.checkUserByTodoId(record.id!!)) {
-            return ResponseEntity("Auth Error", HttpStatus.FORBIDDEN)
+            return Pair("Auth Error", HttpStatus.FORBIDDEN)
         }
 
         kotlin.runCatching {
             todoRepository.update(record)
         }.fold(
-            onSuccess = { return ResponseEntity("update todo is successful", HttpStatus.OK) },
-            onFailure = { return ResponseEntity("update todo is failed", HttpStatus.INTERNAL_SERVER_ERROR) }
+            onSuccess = { return Pair("update todo is successful", HttpStatus.OK) },
+            onFailure = { return Pair("update todo is failed", HttpStatus.INTERNAL_SERVER_ERROR) }
         )
     }
 
-    fun getTodos(): ResponseEntity<GetTodoResponse> {
+    fun getTodos(): Pair<GetTodoResponse, HttpStatus> {
         var todos = listOf<TodoRecord>()
         kotlin.runCatching {
             todos = todoRepository.selectByUid(userInfoFactory.getUserInfo().id)
         }.fold(
-            onSuccess = { return ResponseEntity(GetTodoResponse(message = "succeeded", todos = todos), HttpStatus.OK) },
+            onSuccess = { return Pair(GetTodoResponse(message = "succeeded", todos = todos), HttpStatus.OK) },
             onFailure = {
-                return ResponseEntity(
+                return Pair(
                     GetTodoResponse(message = "failed", todos = todos),
                     HttpStatus.INTERNAL_SERVER_ERROR
                 )
