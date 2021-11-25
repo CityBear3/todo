@@ -11,13 +11,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/todo")
+@RequestMapping("/api/todos")
 class TodoController(
     private val todoApplicationService: TodoApplicationService,
     private val userInfoFactory: UserInfoFactory,
     private val responseFactory: ResponseFactory
 ) {
-    @PostMapping("/new")
+    @PostMapping
     fun createTodo(@RequestBody createTodoRequest: CreateTodoRequest): ResponseEntity<String> {
         val result = todoApplicationService.createTodo(
             TodoEntity(
@@ -30,7 +30,7 @@ class TodoController(
         return responseFactory.returnFactory(result.first, result.second)
     }
 
-    @PutMapping("/update/{todoId}")
+    @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable("todoId") todoId: Int,
         @RequestBody updateTodoRequest: UpdateTodoRequest
@@ -46,7 +46,7 @@ class TodoController(
         return responseFactory.returnFactory(result.first, result.second)
     }
 
-    @GetMapping("/list")
+    @GetMapping
     fun getTodos(): ResponseEntity<GetTodoResponse> {
         val result = todoApplicationService.getTodos()
         return responseFactory.returnFactory(result.first, result.second)
